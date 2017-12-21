@@ -6,39 +6,31 @@ export default function(context) {
 
   var sketch = context.api()
 
-  var options = {"overwrite":"true", "formats" : "svg", "output":"~/Desktop"}
+  var options = {"overwrite":"true", "formats" : "svg", "output":"/Users/pranusarna/desktop"}
 
   sketch.selectedDocument.selectedLayers.iterate(function(layer){
-    layer.export(options)
+    layer.export(options);
   })
 
-  // if(svgicon2svgfont()) {
-  //       log('✅ compression ok')
-  //       log(svgicon2svgfont())
-  //     } else {
-  //       log('❌ compression error')
-  //       log (svgicon2svgfont())
-  //     }
-
-  log(svgicon2svgfont())
+  if(svgicon2font()){
+    log("man's not hot")
+  }else{
+    log("no ketchup")
+  }
 
 }
 
-function svgicon2svgfont(){
+function svgicon2font(){
 
   var args = [
-
-    "svgicons2svgfont --fontname=hello -o ~/Desktop ~/Desktop/*.svg"
+    "-l",
+    "-c",
+    " webfont /Users/pranusarna/desktop/*.svg -d /Users/pranusarna/desktop/font -t css -n zombats-regular -f zombats-regular "
   ]
 
-  // var args = [
-  //   "svgicons2svgfont --fontname = hello",
-  //   "-o ~/Desktop",
-  //   "~/Desktop/*.svg"
-  // ]
-
-  return runCommand("/Users/pranusarna/.nvm/versions/node/v8.4.0/bin/svgicons2svgfont", ["svgicons2svgfont --fontname=hello -o ~/Desktop ~/Desktop/*.svg"])
+  return runCommand("/bin/bash", args)
 }
+
 
 function runCommand(command, args) {
   var task = NSTask.alloc().init();
